@@ -570,7 +570,7 @@ if delivery_file:
                 lot_kg_summary=final_lot_totals.to_dict(),
                 cooperative_names=uploaded_df['cooperative name'].dropna().unique().tolist(),
                 logo_path=LOGO_PATH,
-                logo_cocoa=LOGO_COCOA
+                logo_cocoa=LOGO_COCOA,
                 uploaded_file_content=uploaded_excel_file.getvalue(), # Pass the file content
                 delivery_file_name=uploaded_excel_file.name # Pass the file name
             )
