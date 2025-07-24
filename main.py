@@ -333,7 +333,7 @@ def generate_pdf_confirmation(lot_numbers, exporter_name, farmer_count, total_kg
         st.error(f"{t('approval_save_error')}: {e}")
 
     # --- SharePoint Upload with Error Handling ---
-    sharepoint_folder_path = "/sites/EXPORTTRACA/Shared%20Documents"
+    sharepoint_folder_path = "/Shared Documents"
     excel_file_name = delivery_file_name # Use the passed file name
 
     try:
