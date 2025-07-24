@@ -243,28 +243,27 @@ def save_delivery_to_supabase(df):
 
 
 def upload_file_to_sharepoint(site_url, client_id, client_secret, folder_path, file_name, file_content):
-    """Uploads a file to a specified SharePoint folder."""
     try:
+        print("🔍 Connecting to:", site_url)
+        print("📁 Folder path:", folder_path)
+        print("📄 File name:", file_name)
 
-        print("DEBUG: Connecting to site_url:", site_url)
-        print("DEBUG: Target folder_path:", folder_path)
-        print("DEBUG: File to upload:", file_name)
-        # Establish connection to SharePoint
         ctx = ClientContext(site_url).with_credentials(ClientCredential(client_id, client_secret))
+        
+        # Test if folder exists
+        folder = ctx.web.get_folder_by_server_relative_url(folder_path)
+        ctx.load(folder)
+        ctx.execute_query()
+        print("✅ Folder exists:", folder.properties["ServerRelativeUrl"])
 
-        # Get reference to the target folder
-        target_folder = ctx.web.get_folder_by_server_relative_url(folder_path)
-
-        # Upload the file content
-        target_folder.upload_file(file_name, file_content).execute_query()
-
-        #st.success(f"Successfully uploaded file '{file_name}' to SharePoint folder '{folder_path}'.") # Handled in generate_pdf_confirmation
+        # Upload the file
+        folder.upload_file(file_name, file_content).execute_query()
+        print("✅ File uploaded.")
         return True
     except Exception as e:
-        import traceback
-        print(f"❌ SharePoint upload failed for file '{file_name}': {e}")
-        traceback.print_exc()
+        print("❌ Upload failed:", e)
         return False
+
 
     
 def refresh_quota_view():
