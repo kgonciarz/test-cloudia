@@ -245,6 +245,10 @@ def save_delivery_to_supabase(df):
 def upload_file_to_sharepoint(site_url, client_id, client_secret, folder_path, file_name, file_content):
     """Uploads a file to a specified SharePoint folder."""
     try:
+
+        print("DEBUG: Connecting to site_url:", site_url)
+        print("DEBUG: Target folder_path:", folder_path)
+        print("DEBUG: File to upload:", file_name)
         # Establish connection to SharePoint
         ctx = ClientContext(site_url).with_credentials(ClientCredential(client_id, client_secret))
 
