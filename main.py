@@ -257,9 +257,11 @@ def upload_file_to_sharepoint(site_url, client_id, client_secret, folder_path, f
         #st.success(f"Successfully uploaded file '{file_name}' to SharePoint folder '{folder_path}'.") # Handled in generate_pdf_confirmation
         return True
     except Exception as e:
-        #st.error(f"SharePoint upload failed for file '{file_name}': {e}") # Handled in generate_pdf_confirmation
-        print(f"SharePoint upload failed for file '{file_name}': {e}") # Log to console
+        import traceback
+        print(f"❌ SharePoint upload failed for file '{file_name}': {e}")
+        traceback.print_exc()
         return False
+
     
 def refresh_quota_view():
     try:
