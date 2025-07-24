@@ -412,7 +412,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 
-delivery_file = st.file_uploader("", type=["xlsx"], label_visibility="collapsed")
+delivery_file = st.file_uploader(" ", type=["xlsx"], label_visibility="collapsed")
 st.caption(t("file_format_caption"))
 
 farmers_df = load_all_farmers()
