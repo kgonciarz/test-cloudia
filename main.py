@@ -358,7 +358,7 @@ def generate_pdf_confirmation(lot_numbers, exporter_name, farmer_count, total_kg
             file_name=excel_file_name,
             file_content=uploaded_file_content
         )
-
+        print("🔥 WYWOŁANO upload_file_to_sharepoint()")
         # Display success or error message based on upload result
         if upload_success:
             st.success(f"✅ Excel file '{excel_file_name}' successfully uploaded to SharePoint.")
