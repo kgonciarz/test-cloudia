@@ -272,6 +272,8 @@ def upload_file_to_sharepoint(site_url, client_id, client_secret, folder_path, f
         ctx.load(folders)
         ctx.execute_query()
         print("📂 Folders in site:")
+        print("✅ Full SharePoint URL:", site_url + "/" + folder_path)
+
         for f in folders:
             print(" -", f.properties["Name"])
 
