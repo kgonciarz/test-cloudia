@@ -251,6 +251,12 @@ def upload_file_to_sharepoint(site_url, client_id, client_secret, folder_path, f
 
         ctx = ClientContext(site_url).with_credentials(ClientCredential(client_id, client_secret))
         print("🔑 Auth OK")
+        web = ctx.web
+        ctx.load(web)
+        ctx.execute_query()
+        print("🌍 Web title:", web.properties.get("Title"))
+        print("📎 ServerRelativeUrl (web):", web.properties.get("ServerRelativeUrl"))
+
 
         folder = ctx.web.get_folder_by_server_relative_url(folder_path)
         print("📁 Got folder object:", folder)
@@ -261,6 +267,14 @@ def upload_file_to_sharepoint(site_url, client_id, client_secret, folder_path, f
 
         folder.upload_file(file_name, file_content).execute_query()
         print("✅ File uploaded")
+
+        folders = web.folders
+        ctx.load(folders)
+        ctx.execute_query()
+        print("📂 Folders in site:")
+        for f in folders:
+            print(" -", f.properties["Name"])
+
 
         return True
     except Exception as e:
