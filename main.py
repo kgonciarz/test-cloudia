@@ -244,25 +244,29 @@ def save_delivery_to_supabase(df):
 
 def upload_file_to_sharepoint(site_url, client_id, client_secret, folder_path, file_name, file_content):
     try:
-        print("🔍 Connecting to:", site_url)
-        print("📁 Folder path:", folder_path)
-        print("📄 File name:", file_name)
+        print("📡 START upload_file_to_sharepoint()")
+        print("🌐 site_url:", site_url)
+        print("📁 folder_path:", folder_path)
+        print("📄 file_name:", file_name)
 
         ctx = ClientContext(site_url).with_credentials(ClientCredential(client_id, client_secret))
-        
-        # Test if folder exists
+        print("🔑 Auth OK")
+
         folder = ctx.web.get_folder_by_server_relative_url(folder_path)
+        print("📁 Got folder object:", folder)
+
         ctx.load(folder)
         ctx.execute_query()
-        print("✅ Folder exists:", folder.properties["ServerRelativeUrl"])
+        print("✅ Folder exists:", folder.properties.get("ServerRelativeUrl", "NO URL"))
 
-        # Upload the file
         folder.upload_file(file_name, file_content).execute_query()
-        print("✅ File uploaded.")
+        print("✅ File uploaded")
+
         return True
     except Exception as e:
-        print("❌ Upload failed:", e)
+        print("❌ Exception:", repr(e))  # <--- bardzo ważne!
         return False
+
 
 
     
